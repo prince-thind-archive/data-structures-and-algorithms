@@ -9,34 +9,16 @@ class Node {
   //inorder transversal
   getInorder() {
     const res = [];
-    const stack = [];
+    inorder(this);
 
-    //start with full tree inside stack;
-    stack.push(this);
-
-    do {
-      //peek the top of stack;
-      const top = stack[stack.length - 1];
-
-      //if leftnode exists
-      if (top.left) {
-        const subTree = stack.pop();
-
-        //if rightnode exists break right part and push it
-        if (subTree.right) {
-          stack.push(subTree.right);
-        }
-        // push broken left part and lone data node
-        stack.push(new Node(subTree.data), subTree.left);
-      }  
-      else { //only data node exists
-        const data = stack.pop();
-        res.push(data);
+    function inorder(root) {
+      if (root) {
+        inorder(root.left);
+        res.push(root.data);
+        inorder(root.right);
       }
-    } while (stack.length > 0);
-
-    //return data from the array of nodes
-    return res.map(e=>e.data);
+    }
+    return res;
   }
 }
 
